@@ -1,1 +1,12 @@
 
+on: [push, workflow_dispatch]
+permissions:
+  contents: write
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/01a02b51-foodbool
+      - run: bash .github/scripts/build-apk.sh
