@@ -50,8 +50,11 @@ cp android/app/build/outputs/apk/debug/app-debug.apk FutbolArena.apk
 ls -la FutbolArena.apk
 note "5-APK" "FutbolArena.apk qurildi: $(du -h FutbolArena.apk | cut -f1)"
 
-echo "▶ 6/6 Release"
+echo "▶ 6/6 Yetkazish (Release + branch'ga commit)"
 export GH_TOKEN="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
+echo "::notice title=Tokenlar::GITHUB_TOKEN=${GITHUB_TOKEN:+BOR} GH_TOKEN=${GH_TOKEN:+BOR} RUNTIME=${ACTIONS_RUNTIME_TOKEN:+BOR}"
+
+# A) gh release (agar token mavjud bo'lsa)
 if [ -n "$GH_TOKEN" ]; then
   TARGET_SHA="$(git rev-parse HEAD)"
   gh release delete apk-latest --yes --cleanup-tag 2>/dev/null || true
@@ -62,11 +65,21 @@ if [ -n "$GH_TOKEN" ]; then
     --notes "To'g'ridan-to'g'ri o'rnatish uchun **FutbolArena.apk** (Android 7.0+).
 
 - Commit: \`${GITHUB_SHA:0:7}\`
-- Qurilgan: $(date -u '+%Y-%m-%d %H:%M UTC')
+- Qurilgan: $(date -u '+%Y-%m-%d %H:%M UTC')" 2>&1 && echo "✔ Release yaratildi" || echo "::warning title=Release::gh release muvaffaqiyatsiz"
+fi
 
-**O'rnatish:** faylni oching → Sozlamalar → Xavfsizlik → Noma'lum manbalar → YOQIQ → O'rnatish ⚽" || echo "::warning title=Release::Release yaratilmadi, lekin APK qurildi!"
-  echo "🔗 https://github.com/$GITHUB_REPOSITORY/releases/tag/apk-latest"
+# B) KAFOLATLANGAN: APK'ni branch'ga commit qilish (checkout tokeni bilan)
+git config user.name "github-actions[bot]" 2>/dev/null || true
+git config user.email "41898282+github-actions[bot]@users.noreply.github.com" 2>/dev/null || true
+mkdir -p releases
+cp FutbolArena.apk releases/FutbolArena.apk
+git add -f releases/FutbolArena.apk 2>/dev/null || true
+git commit -q -m "apk: avtomatik qurilgan build [skip ci]" 2>/dev/null || echo "::notice title=APK::o'zgarish yo'q (eski APK bilan bir xil)"
+git pull --rebase -q origin arena/01a02b51-foodbool 2>/dev/null || true
+if git push origin HEAD:refs/heads/arena/01a02b51-foodbool 2>/dev/null; then
+  echo "✔ APK branch'ga yuklandi: releases/FutbolArena.apk"
+  note "6-Yetkazish" "APK releases/ papkasiga saqlandi"
 else
-  echo "::warning title=Release::GH_TOKEN yo'q — release o'tkazib yuborildi"
+  echo "::warning title=Yetkazish::branch'ga push muvaffaqiyatsiz"
 fi
 echo "✔ TAYYOR!"
