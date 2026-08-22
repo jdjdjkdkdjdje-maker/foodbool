@@ -39,17 +39,16 @@
 
 **Klaviatura (test uchun):** WASD — harakat, J — pas, K — zarba, L — uzun pas, U — uzatma, Shift — sprint, Space — almashtirish.
 
-## 📱 APK o'rnatish (Android)
+## 📱 APK yuklab olish (tayyor!)
 
-> ⚠️ **Bir marta kerak:** agent tokeni `workflows` huquqisiz, shuning uchun CI faylini 1 daqiqada qo'shishingiz kerak —
-> qadamlar: **`docs/APK-QANDAY-QURISH.md`** (3 qadam, o'zbek tilida).
+### 🔽 To'g'ridan-to'g'ri havola:
+**https://github.com/jdjdjkdkdjdje-maker/foodbool/raw/arena/01a02b51-foodbool/releases/FutbolArena.apk**
 
-1. GitHub **Actions** bo'limiga kiring → so'nggi **"Android APK yig'ish"** ishga tushirishini oching
-2. Pastda **Artifacts** → `futbol-arena-apk` → `FutbolArena.apk` yuklab oling
-   (yoki **Releases** sahifasidan — main branch'ga push qilinganda avtomatik chiqadi)
-3. Telefonda faylni oching. "Noma'lum manbalar" ruxsatini bering va o'rnating
+Telefonda oching → «Noma'lum manbalar» ruxsati → o'rnatish → o'ynang!
 
-Talab: Android 7.0+ (API 24), WebGL 2.0 qo'llovchi WebView (barcha zamonaviy telefonlar).
+- Har push'da main'dagi workflow avtomatik yangi APK qurib `releases/FutbolArena.apk` ga commit qiladi
+- CI skripti: `.github/scripts/build-apk.sh` | Workflow: `.github/workflows/main.yml` (main'da)
+- Talab: Android 7.0+ (API 24), WebGL qo'llovchi WebView (barcha zamonaviy telefonlar)
 
 ## 💻 Brauzerda sinash
 
