@@ -1,0 +1,10 @@
+# Build natijalari
+android/app/build/
+android/.gradle/
+android/build/
+android/local.properties
+*.apk
+*.aab
+node_modules/
+__pycache__/
+.DS_Store

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#050d1f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Futbol Arena — 3D Futbol Simulyatori</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-64.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ YUKLANMOQDA ============ -->
+  <div id="load" class="screen">
+    <div class="load-inner">
+      <div class="load-emblem"><span>FA</span></div>
+      <h1 class="load-title">FUTBOL <b>ARENA</b></h1>
+      <p class="load-sub">Professional 3D mobil futbol simulyatori</p>
+      <div class="load-bar"><i id="load-fill"></i></div>
+      <p class="load-tip" id="load-tip">Stadion tayyorlanmoqda...</p>
+    </div>
+  </div>
+
+  <!-- ============ MENYU ============ -->
+  <div id="menu" class="screen hidden">
+    <header id="topbar">
+      <div class="tb-left" id="tb-profile">
+        <div class="tb-avatar" id="tb-avatar">⚽</div>
+        <div class="tb-pinfo">
+          <div class="tb-name" id="tb-name">O‘yinchi</div>
+          <div class="tb-xp"><i id="tb-xp-fill"></i><span id="tb-level">1-daraja</span></div>
+        </div>
+      </div>
+      <div class="tb-right">
+        <div class="tb-coin" id="tb-coins">🪙 0</div>
+        <div class="tb-rank" id="tb-rank">Boshlang‘ich</div>
+        <button class="tb-btn" id="tb-settings" aria-label="Sozlamalar">⚙️</button>
+      </div>
+    </header>
+    <main id="menu-content"></main>
+    <nav id="bottomnav">
+      <button class="bn-item active" data-nav="uy"><span class="bn-ic">🏠</span>UY</button>
+      <button class="bn-item" data-nav="oyna"><span class="bn-ic">🎮</span>O‘YNA</button>
+      <button class="bn-item" data-nav="jamoa"><span class="bn-ic">👕</span>JAMOA</button>
+      <button class="bn-item" data-nav="bozor"><span class="bn-ic">🔁</span>BOZOR</button>
+      <button class="bn-item" data-nav="yana"><span class="bn-ic">☰</span>YANA</button>
+    </nav>
+  </div>
+
+  <!-- ============ O'YIN (MATCH) ============ -->
+  <div id="match" class="screen hidden">
+    <canvas id="game"></canvas>
+
+    <!-- HUD yuqori qism -->
+    <div id="hud-top">
+      <div class="hud-score" id="hud-score">
+        <span class="hs-team" id="hs-home">UY</span>
+        <span class="hs-num" id="hs-score">0 : 0</span>
+        <span class="hs-team" id="hs-away">SAFAR</span>
+        <span class="hs-time" id="hs-time">00:00</span>
+        <span class="hs-half" id="hs-half">1-T</span>
+      </div>
+      <button id="hud-pause" aria-label="Pauza">⏸</button>
+      <div class="hud-ping hidden" id="hud-ping">📶 0ms</div>
+    </div>
+
+    <div id="hud-notif" class="hidden"></div>
+    <div id="hud-commentary"></div>
+    <div id="hud-possess" class="hidden"></div>
+
+    <!-- Radar -->
+    <canvas id="hud-radar" width="150" height="96"></canvas>
+
+    <!-- Boshqaruv: joystick -->
+    <div id="joy-zone"><div id="joy-base"><div id="joy-stick"></div></div></div>
+
+    <!-- Boshqaruv: tugmalar -->
+    <div id="btns"></div>
+    <div id="hud-stamina"><i id="hud-st-fill"></i></div>
+
+    <!-- Pauza / natija oynalari -->
+    <div id="pause-ov" class="ov hidden"></div>
+    <div id="end-ov" class="ov hidden"></div>
+  </div>
+
+  <div id="toasts"></div>
+  <div id="modal-root"></div>
+</div>
+
+<script src="js/vendor/three.min.js"></script>
+<script src="js/vendor/mqtt.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/meta.js"></script>
+<script src="js/match.js"></script>
+<script src="js/net.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
