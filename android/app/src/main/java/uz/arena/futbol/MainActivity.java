@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
         web.loadUrl(HOME_URL);
     }
 
-    /** https://localhost/assets/** → assets/www/** */
+    /** https://localhost/assets/** → assets/ ichidagi fayl (masalan /assets/www/index.html → www/index.html) */
     private WebResourceResponse intercept(String url) {
         if (url == null) return null;
         if (!url.startsWith("https://localhost/assets/")) return null; // tarmoq so'rovlari o'tadi
@@ -90,9 +90,10 @@ public class MainActivity extends Activity {
         int q = path.indexOf('?');
         if (q >= 0) path = path.substring(0, q);
         if (path.startsWith("/")) path = path.substring(1);
-        if (path.isEmpty()) path = "index.html";
+        if (path.isEmpty()) path = "www/index.html";
+        if (path.endsWith("/")) path = path + "index.html";
         try {
-            InputStream in = getAssets().open("www/" + path);
+            InputStream in = getAssets().open(path);
             Map<String, String> headers = new HashMap<>();
             headers.put("Access-Control-Allow-Origin", "*");
             headers.put("Cache-Control", "no-cache");
