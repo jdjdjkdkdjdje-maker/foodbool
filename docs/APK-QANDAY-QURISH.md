@@ -1,44 +1,45 @@
-# 📱 APK faylini GitHub'da olish — 3 oddiy qadam
+# 📱 APK faylini GitHub'da olish — 2 qadam (1 daqiqa)
 
-GitHub Actions o'yin avtomatik APK quradi. Buning uchun **bir marta** workflow faylini qo'shish kerak
-(agent tokenida workflow yozish huquqi yo'q, shuning uchun bu 1 qadamni siz qilasiz — 1 daqiqa):
+Agent tokeni `workflows` papkasiga yozish huquqisiz, shuning uchun quyidagi
+kichik faylni **bir marta** qo'shishingiz kerak. Shundan keyin har push'da
+APK **avtomatik** qurilib, Release'ga yuklanadi.
 
-## 1-qadam: Workflow faylini yarating
+## 1-qadam: Bu havolani oching (fayl nomi avtomatik to'ldiriladi)
 
-1. Brauzerda oching: **https://github.com/jdjdjkdkdjdje-maker/foodbool**
-2. Yuqorida yashil **`Add file`** → **`Create new file`** tugmasini bosing
-3. Fayl nomi (to'liq, nuqtalarni ham yozing):
-   ```
-   .github/workflows/apk.yml
-   ```
-4. **`docs/apk-workflow.yml`** faylining to'liq matnini nusxalab, o'sha oynaga qo'ying
-5. Pastda **`Commit changes`** bosing
+👉 **https://github.com/jdjdjkdkdjdje-maker/foodbool/new/arena/01a02b51-foodbool?filename=.github/workflows/apk.yml**
 
-## 2-qadam: Kutib turing (~3-5 daqiqa)
+(yoki qo'lda: repo → `Add file` → `Create new file` → nomi: `.github/workflows/apk.yml`)
 
-- Repo yuqorisidagi **`Actions`** yorlig'ini oching
-- **"Android APK yig'ish"** ishga tushayotganini ko'rasiz
-- Yashil ✔ belgisi chiqishini kuting
+## 2-qadam: Quyidagi 8 qatorni nusxalab qo'ying va `Commit changes` bosing
 
-## 3-qadam: APK'ni yuklab oling
+```yaml
+name: APK
+on: [push, workflow_dispatch]
+permissions:
+  contents: write
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash .github/scripts/build-apk.sh
+```
 
-- O'sha ishga tushirishni (run) oching
-- Pastda **Artifacts** → **`futbol-arena-apk`** → yuklab oling (`FutbolArena.apk`)
-- Telefonda oching, "noma'lum manbalar" ruxsatini bering — va o'ynang! ⚽
+## Bo'ldi! 🎉
 
-> **main branch'ga qo'shsangiz**, APK avtomatik **Releases** sahifasiga ham chiqadi
-> (har push'da yangi versiya). Boshqa branch'larda — Artifacts orqali.
+- **Actions** yorlig'ida qurilishni ko'rasiz (~3-5 daqiqa)
+- APK shu manzilda paydo bo'ladi:
+  **https://github.com/jdjdjkdkdjdje-maker/foodbool/releases/tag/apk-latest**
+- `FutbolArena.apk` ni telefonda oching → o'rnatish → o'ynang ⚽
 
 ---
 
-## Muqobil: GitHub'ni qayta ulang
+### Muqobil: Arena ilovasiga Workflows huquqi berish
 
-Agar Arena sozlamalarida GitHub'ni qayta ulasangiz (workflow huquqi bilan),
-keyingi safar agent o'zi qo'shadi va sizga hech narsa qilish kerak bo'lmaydi.
+`https://github.com/settings/installations` → Arena → **Repository permissions** →
+**Workflows: Read and write** → Save. Keyin agent o'zi ham qo'ya oladi.
 
-## Qurilgan APK haqida
-
-- `uz.arena.futbol` — Futbol Arena
-- Android 7.0+ (API 24), landshaft, to'liq ekran
-- Ichida o'yinning to'liq versiyasi (game/ papkasi avtomatik joylanadi)
-- Debug imzo bilan — bevosita o'rnatiladi
+### APK tarkibi
+- `uz.arena.futbol` — Futbol Arena, Android 7.0+ (API 24)
+- `game/` papkasi avtomatik APK ichiga joylanadi (to'liq o'yin)
+- Debug imzo — bevosita o'rnatiladi

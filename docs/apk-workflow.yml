@@ -1,68 +1,10 @@
-name: Android APK yig'ish
-
-on:
-  push:
-    branches: ["**"]
-  workflow_dispatch:
-
+name: APK
+on: [push, workflow_dispatch]
+permissions:
+  contents: write
 jobs:
   apk:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Kodni yuklash
-        uses: actions/checkout@v4
-
-      - name: Java 17 o'rnatish
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Android SDK sozlash
-        uses: android-actions/setup-android@v3
-
-      - name: Gradle o'rnatish
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '8.7'
-
-      - name: O'yin fayllarini APK ichiga nusxalash
-        run: |
-          mkdir -p android/app/src/main/assets
-          cp -r game android/app/src/main/assets/www
-          ls android/app/src/main/assets/www
-
-      - name: APK yig'ish
-        working-directory: android
-        run: gradle assembleDebug --no-daemon --stacktrace
-
-      - name: APK nomini o'zgartirish
-        run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk FutbolArena.apk
-          ls -la FutbolArena.apk
-
-      - name: APK artefakt sifatida yuklash
-        uses: actions/upload-artifact@v4
-        with:
-          name: futbol-arena-apk
-          path: FutbolArena.apk
-          retention-days: 30
-
-      - name: GitHub Release (faqat main branch)
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: apk-v${{ github.run_number }}
-          name: "Futbol Arena APK (v1.0.${{ github.run_number }})"
-          body: |
-            📱 **Futbol Arena** — 3D mobil futbol simulyatori (o'zbek tilida)
-
-            📥 Quyidagi `FutbolArena.apk` faylini yuklab oling va telefonda oching.
-
-            - O'rnatishdan oldin: Sozlamalar → Xavfsizlik → "Noma'lum manbalar" yoqilgan bo'lishi kerak
-            - Android 7.0+ qo'llanadi
-          files: FutbolArena.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+      - run: bash .github/scripts/build-apk.sh
