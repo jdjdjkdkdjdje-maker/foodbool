@@ -41,6 +41,9 @@
 
 ## 📱 APK o'rnatish (Android)
 
+> ⚠️ **Bir marta kerak:** agent tokeni `workflows` huquqisiz, shuning uchun CI faylini 1 daqiqada qo'shishingiz kerak —
+> qadamlar: **`docs/APK-QANDAY-QURISH.md`** (3 qadam, o'zbek tilida).
+
 1. GitHub **Actions** bo'limiga kiring → so'nggi **"Android APK yig'ish"** ishga tushirishini oching
 2. Pastda **Artifacts** → `futbol-arena-apk` → `FutbolArena.apk` yuklab oling
    (yoki **Releases** sahifasidan — main branch'ga push qilinganda avtomatik chiqadi)
