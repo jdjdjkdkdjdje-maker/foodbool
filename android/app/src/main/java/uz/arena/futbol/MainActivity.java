@@ -99,7 +99,7 @@ public class MainActivity extends Activity {
             return new WebResourceResponse(mime(path), "utf-8", in);
         } catch (Exception e) {
             return new WebResourceResponse("text/plain", "utf-8", 404, "Not Found",
-                    new ByteArrayInputStream(new byte[0]));
+                    new HashMap<String, String>(), new ByteArrayInputStream(new byte[0]));
         }
     }
 
