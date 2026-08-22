@@ -8,3 +8,4 @@ android/local.properties
 node_modules/
 __pycache__/
 .DS_Store
+.github/workflows/

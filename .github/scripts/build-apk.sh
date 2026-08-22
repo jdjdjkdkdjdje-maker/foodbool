@@ -44,10 +44,11 @@ ls -la FutbolArena.apk
 echo "▶ 6/6 — GitHub Release'ga yuklash"
 export GH_TOKEN="${GH_TOKEN:-${GITHUB_TOKEN:-}}"
 if [ -n "$GH_TOKEN" ]; then
+  TARGET_SHA="$(git rev-parse HEAD)"
   gh release delete apk-latest --yes --cleanup-tag 2>/dev/null || true
   git config user.name "github-actions[bot]" || true
   gh release create apk-latest FutbolArena.apk \
-    --target "$GITHUB_SHA" --prerelease \
+    --target "$TARGET_SHA" --prerelease \
     --title "📱 Futbol Arena — APK (eng yangi)" \
     --notes "To'g'ridan-to'g'ri o'rnatish uchun **FutbolArena.apk** (Android 7.0+).
 

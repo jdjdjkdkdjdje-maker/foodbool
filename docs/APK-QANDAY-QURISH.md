@@ -1,19 +1,14 @@
-# 📱 APK faylini GitHub'da olish — 2 qadam (1 daqiqa)
+# 📱 APK faylini olish — 1 daqiqa (bitta qadam!)
 
-Agent tokeni `workflows` papkasiga yozish huquqisiz, shuning uchun quyidagi
-kichik faylni **bir marta** qo'shishingiz kerak. Shundan keyin har push'da
-APK **avtomatik** qurilib, Release'ga yuklanadi.
+Sizda `.github/workflows/main.yml` fayli allaqachon bor (bo'sh). Faqat unga mazmun qo'yish kifoya:
 
-## 1-qadam: Bu havolani oching (fayl nomi avtomatik to'ldiriladi)
+## Qadam: Quyidagi havolani oching
 
-👉 **https://github.com/jdjdjkdkdjdje-maker/foodbool/new/arena/01a02b51-foodbool?filename=.github/workflows/apk.yml**
+👉 **https://github.com/jdjdjkdkdjdje-maker/foodbool/edit/main/.github/workflows/main.yml**
 
-(yoki qo'lda: repo → `Add file` → `Create new file` → nomi: `.github/workflows/apk.yml`)
-
-## 2-qadam: Quyidagi 8 qatorni nusxalab qo'ying va `Commit changes` bosing
+Ochilgan oynadagi katta maydonga quyidagi **9 qatorni** nusxalab qo'ying (hammasini!):
 
 ```yaml
-name: APK
 on: [push, workflow_dispatch]
 permissions:
   contents: write
@@ -22,24 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: arena/01a02b51-foodbool
       - run: bash .github/scripts/build-apk.sh
 ```
 
-## Bo'ldi! 🎉
+Pastda yashil **`Commit changes`** tugmasini bosing. Bu darhol APK qurishni boshlaydi! 🚀
 
-- **Actions** yorlig'ida qurilishni ko'rasiz (~3-5 daqiqa)
-- APK shu manzilda paydo bo'ladi:
+## Natija (~3-5 daqiqadan keyin)
+
+- **Actions** yorlig'ida qurilish jarayonini kuzatishingiz mumkin
+- Tayyor APK shu manzilda: 
   **https://github.com/jdjdjkdkdjdje-maker/foodbool/releases/tag/apk-latest**
-- `FutbolArena.apk` ni telefonda oching → o'rnatish → o'ynang ⚽
-
----
-
-### Muqobil: Arena ilovasiga Workflows huquqi berish
-
-`https://github.com/settings/installations` → Arena → **Repository permissions** →
-**Workflows: Read and write** → Save. Keyin agent o'zi ham qo'ya oladi.
+- `FutbolArena.apk` faylini telefonda oching → o'rnatish → o'ynang ⚽
 
 ### APK tarkibi
-- `uz.arena.futbol` — Futbol Arena, Android 7.0+ (API 24)
-- `game/` papkasi avtomatik APK ichiga joylanadi (to'liq o'yin)
+- `uz.arena.futbol` — Futbol Arena, Android 7.0+ (API 24), landshaft, to'liq ekran
+- Workflow `arena/01a02b51-foodbool` branch'ini tekshiradi (o'yin kodi shu yerda)
+- `game/` papkasi avtomatik APK ichiga joylanadi
 - Debug imzo — bevosita o'rnatiladi
